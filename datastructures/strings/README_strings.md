@@ -1,4 +1,4 @@
-# Complete String and Hash Map Interview Preparation Guide
+# Complete String & Hashmap Interview Preparation Guide
 
 ## 📚 Overview
 
@@ -11,8 +11,7 @@ datastructures/strings/
 ├── README_strings.md              # This file - Complete guide
 ├── string_patterns.py             # 50 problems with solutions
 ├── string_pattern_guide.md       # Detailed pattern identification guide
-├── string_cheat_sheet.md          # Quick reference for rapid review
-└── string_test_utils.py          # Testing utilities
+└── string_cheat_sheet.md          # Quick reference for rapid review
 ```
 
 ## 🎯 Learning Path
@@ -34,88 +33,86 @@ datastructures/strings/
 
 ## 🏗️ The 7 Essential Patterns
 
-### 1️⃣ **Two Pointers Pattern** (8 problems)
-**When to Use:** String manipulation, palindrome checks, reversals
+### 1️⃣ **Hash Map Patterns** (10 problems)
+**When to Use:** Character frequency counting, categorization, position tracking
+**Time Complexity:** O(n) | **Space Complexity:** O(1) for limited alphabet
+
+**Key Problems:**
+- Two Sum (Hash Map variation)
+- Isomorphic Strings
+- First Unique Character
+- Group Anagrams
+- Word Pattern
+
+### 2️⃣ **Two Pointers for Strings** (8 problems)
+**When to Use:** Palindrome checks, string reversal, in-place operations
 **Time Complexity:** O(n) | **Space Complexity:** O(1)
 
 **Key Problems:**
 - Reverse String
+- Reverse Vowels
 - Valid Palindrome
-- Longest Palindromic Substring
-- Reverse Vowels of a String
 - Valid Palindrome II
+- Reverse Words in String
 
-### 2️⃣ **Sliding Window Pattern** (10 problems)
-**When to Use:** Substring problems with constraints
+### 3️⃣ **Sliding Window for Strings** (8 problems)
+**When to Use:** Substring problems with constraints, character counting
 **Time Complexity:** O(n) | **Space Complexity:** O(1)
 
 **Key Problems:**
-- Longest Substring Without Repeating Characters
-- Longest Substring with At Most K Distinct Characters
-- Minimum Window Substring
-- Find All Anagrams in a String
+- Longest Substring Without Repeating
 - Longest Repeating Character Replacement
+- Find All Anagrams
+- Minimum Window Substring
+- Max Consecutive Ones III
 
-### 3️⃣ **Hash Map Pattern** (10 problems)
-**When to Use:** Character counting, frequency analysis, anagrams
+### 4️⃣ **String Manipulation Patterns** (8 problems)
+**When to Use:** Mathematical operations, path processing, evaluation
+**Time Complexity:** O(n) | **Space Complexity:** O(n)
+
+**Key Problems:**
+- Add Binary
+- Multiply Strings
+- Simplify Path
+- Basic Calculator II
+- Fraction to Decimal
+
+### 5️⃣ **Anagram and Pattern Matching** (8 problems)
+**When to Use:** Finding anagrams, permutations, pattern detection
 **Time Complexity:** O(n) | **Space Complexity:** O(1)
 
 **Key Problems:**
-- First Unique Character in a String
 - Valid Anagram
 - Group Anagrams
-- Sort Characters By Frequency
-- Custom Sort String
-
-### 4️⃣ **String Building Pattern** (7 problems)
-**When to Use:** Result construction, transformations
-**Time Complexity:** O(n) | **Space Complexity:** O(n)
-
-**Key Problems:**
-- String to Integer (atoi)
-- Integer to Roman
-- Zigzag Conversion
-- Multiply Strings
-- Add Strings
-
-### 5️⃣ **Pattern Matching Pattern** (5 problems)
-**When to Use:** Finding substrings, validation
-**Time Complexity:** O(n) | **Space Complexity:** O(1)
-
-**Key Problems:**
-- Implement strStr()
-- Regular Expression Matching
-- Wildcard Matching
-- Valid Parentheses
-- Valid Word Abbreviation
-
-### 6️⃣ **String Parsing Pattern** (5 problems)
-**When to Use:** Extracting information, tokenization
-**Time Complexity:** O(n) | **Space Complexity:** O(n)
-
-**Key Problems:**
+- Permutation in String
 - Word Break
-- Reverse Words in a String
-- Text Justification
-- Basic Calculator II
-- Decode Ways
+- Repeated DNA Sequences
 
-### 7️⃣ **String Encoding Pattern** (5 problems)
-**When to Use:** Compression, decoding, encoding
+### 6️⃣ **String Transformation Patterns** (4 problems)
+**When to Use:** Encoding/decoding, format conversion, pattern simulation
 **Time Complexity:** O(n) | **Space Complexity:** O(n)
 
 **Key Problems:**
 - Encode and Decode Strings
-- Length of Last Word
+- Zigzag Conversion
 - Count and Say
-- Decompress Run-Length Encoded List
-- String Compression
+- Longest Common Prefix
+
+### 7️⃣ **Advanced String Algorithms** (4 problems)
+**When to Use:** Complex pattern matching, regex, efficient search
+**Time Complexity:** O(n+m) | **Space Complexity:** O(m)
+
+**Key Problems:**
+- Implement strStr() (KMP)
+- Regular Expression Matching
+- Wildcard Matching
+- Advanced Search Algorithms
 
 ## 🚀 Quick Start Guide
 
 ### **For Beginners:**
 1. Start with [`string_cheat_sheet.md`](string_cheat_sheet.md) to understand patterns
-2. Practice easy problems first (1-8, 19-26, 35-39, 45-47)
+2. Practice easy problems first (1-10, 11-18, 35, 46)
 3. Focus on pattern recognition, not memorization
 
 ### **For Intermediate:**
@@ -124,7 +121,7 @@ datastructures/strings/
 3. Practice explaining pattern choices
 
 ### **For Advanced:**
-1. Focus on hard problems (17, 23, 28, 33, 38, 43, 48-50)
+1. Focus on hard problems (17, 22, 30, 34, 42, 47-50)
 2. Optimize for space and time
 3. Handle edge cases and follow-ups
 
@@ -132,39 +129,50 @@ datastructures/strings/
 
 ### **Pattern Identification Decision Tree:**
 ```
-Compare characters from different positions? → Two Pointers
-Substring constraints? → Sliding Window
-Counting characters/frequencies? → Hash Map
-Building new string? → String Building
-Validating formats/patterns? → Pattern Matching
-Extracting information? → String Parsing
-Encoding/compression? → String Encoding
-Else → Brute Force → Optimize to pattern
+Is it about frequency/counting? → Hash Map
+Is it palindrome/reversal? → Two Pointers
+Is it substring with constraints? → Sliding Window
+Is it anagram/pattern matching? → Anagram Matching
+Is it encode/decode/transform? → String Transformation
+Is it complex pattern matching? → Advanced Algorithms
+Else → String Manipulation
 ```
 
 ### **During Interview:**
 1. **Clarify constraints** (2 minutes)
-   - Case sensitivity
-   - Character set (ASCII, Unicode)
+   - Character set (ASCII, Unicode, lowercase only)
    - String length limits
+   - Memory constraints
+
 2. **Identify pattern** (1 minute)
+   - Use decision tree above
+   - Consider edge cases
+
 3. **Explain approach** (2 minutes)
+   - Why this pattern over others
+   - Time and space complexity
+
 4. **Write code** (8-10 minutes)
+   - Use clean, readable code
+   - Handle edge cases
+
 5. **Test and analyze** (2-3 minutes)
+   - Walk through examples
+   - Discuss follow-up optimizations
 
 ### **Common Follow-ups:**
-- "Can you optimize space?" → Look for in-place solutions, use arrays for fixed alphabets
-- "What if the string is very large?" → Consider streaming approaches
-- "How to handle Unicode characters?" → Discuss character encoding considerations
-- "Can you solve this without built-in functions?" → Implement manual solutions
+- "Can you optimize space?" → Look for in-place solutions
+- "What if character set is Unicode?" → Use hash maps instead of arrays
+- "How to handle large strings?" → Consider streaming algorithms
+- "Can you do it in one pass?" → Usually sliding window or two pointers
 
 ## 📊 Problem Difficulty Distribution
 
 | Difficulty | Count | Pattern Focus |
 |------------|-------|---------------|
-| Easy | 18 | Two Pointers, Hash Map, String Building |
-| Medium | 24 | All patterns, especially Sliding Window, Pattern Matching |
-| Hard | 8 | Complex combinations, optimizations, parsing |
+| Easy | 15 | Hash Map, Two Pointers, Basic Manipulation |
+| Medium | 25 | All patterns, especially Sliding Window, Anagrams |
+| Hard | 10 | Complex combinations, Advanced Algorithms |
 
 ## 🏆 Success Metrics
 
@@ -183,7 +191,7 @@ Else → Brute Force → Optimize to pattern
 1. **Pattern Recognition > Memorization:** Focus on recognizing when to apply each pattern
 2. **Start Simple:** Always begin with brute force, then optimize
 3. **Explain Your Thinking:** Verbalize pattern choice during interviews
-4. **Handle Edge Cases:** Empty string, single character, Unicode, case sensitivity
+4. **Handle Edge Cases:** Empty string, single character, Unicode
 5. **Practice Under Pressure:** Simulate interview conditions
 
 ## 📈 Progress Tracking
@@ -219,10 +227,9 @@ python string_patterns.py
 ### **Complementary Files:**
 - [`string_pattern_guide.md`](string_pattern_guide.md) - Detailed pattern explanations
 - [`string_cheat_sheet.md`](string_cheat_sheet.md) - Quick reference guide
-- [`string_test_utils.py`](string_test_utils.py) - Testing utilities
 
 ### **External Resources:**
-- LeetCode Explore sections on strings
+- LeetCode Explore sections for Strings
 - Interview preparation books
 - YouTube tutorials for visual learners
 - Practice platforms for timed sessions
@@ -235,31 +242,68 @@ python string_patterns.py
 4. **Learn from Mistakes:** Review why pattern misidentification happened
 5. **Stay Calm:** Pattern recognition comes with practice
 
-## 🌟 Special Focus on Hash Maps
-
-Since this guide covers both strings and hash maps, pay special attention to:
-
-### **Hash Map Optimization Techniques:**
-- **Fixed Alphabet:** Use array of size 26/128/256 for O(1) space
-- **Bit Manipulation:** Track character sets with bitwise operations
-- **Counting Sort:** When characters are in limited range
-- **Trie Data Structure:** For prefix-based problems
-
-### **Common Hash Map Patterns:**
-- **Frequency Counting:** Most common string pattern
-- **First/Last Occurrence:** Track indices with hash maps
-- **Pattern Matching:** Compare character frequencies
-- **Grouping:** Group strings by common properties
-
----
-
 ## 🚀 Ready to Start?
 
 1. **Begin with** [`string_cheat_sheet.md`](string_cheat_sheet.md) for pattern overview
 2. **Practice with** [`string_patterns.py`](string_patterns.py) for implementation
 3. **Deep dive with** [`string_pattern_guide.md`](string_pattern_guide.md) for detailed understanding
 
-**Remember:** The goal isn't just to solve problems, but to develop a systematic approach that works under interview pressure. Master these patterns, and you'll be prepared for virtually any string or hash map problem that comes your way! 🎯
+## 🎯 Pattern Mastery Checklist
+
+### **Hash Map Patterns:**
+- [ ] Frequency counting with Counter
+- [ ] Categorization with defaultdict
+- [ ] Position tracking
+- [ ] Bijective mapping
+
+### **Two Pointers:**
+- [ ] Palindrome validation
+- [ ] String reversal
+- [ ] Character skipping
+- [ ] In-place operations
+
+### **Sliding Window:**
+- [ ] Fixed-size windows
+- [ ] Variable-size windows
+- [ ] Constraint-based windows
+- [ ] Frequency tracking
+
+### **String Manipulation:**
+- [ ] Mathematical operations
+- [ ] Path processing
+- [ ] Expression evaluation
+- [ ] Format conversion
+
+### **Anagram Matching:**
+- [ ] Anagram detection
+- [ ] Permutation checking
+- [ ] Pattern matching
+- [ ] Grouping by properties
+
+### **String Transformation:**
+- [ ] Encoding/decoding
+- [ ] Pattern simulation
+- [ ] Rule-based transformation
+- [ ] Format conversion
+
+### **Advanced Algorithms:**
+- [ ] KMP string search
+- [ ] Regular expression matching
+- [ ] Wildcard matching
+- [ ] Efficient search algorithms
+
+---
+
+## 🚀 Final Words
+
+Remember: The goal isn't just to solve problems, but to develop a systematic approach that works under interview pressure. Master these patterns, and you'll be prepared for virtually any string problem that comes your way! 🎯
+
+### **Key Success Factors:**
+1. **Pattern Recognition:** Identify the right approach quickly
+2. **Clear Communication:** Explain your thought process
+3. **Efficient Implementation:** Write clean, optimized code
+4. **Edge Case Handling:** Consider all possible inputs
+5. **Follow-up Management:** Handle optimization questions
 
 ---
 

@@ -1,303 +1,763 @@
-# String Pattern Identification Guide for LeetCode Interviews
+# String & Hashmap Pattern Identification Guide for LeetCode Interviews
 
 ## Quick Reference Table
 
 | Pattern | When to Use | Time Complexity | Space Complexity | Key Indicators |
 |---------|-------------|-----------------|------------------|----------------|
-| Two Pointers | String manipulation, palindrome checks | O(n) | O(1) | "reverse", "palindrome", "two characters" |
-| Sliding Window | Substring problems with constraints | O(n) | O(1) | "substring", "longest", "shortest", "window" |
-| Hash Map | Character counting, frequency analysis | O(n) | O(1) | "frequency", "count", "duplicate", "anagram" |
-| String Building | Result construction, transformations | O(n) | O(n) | "build", "transform", "modify" |
-| Pattern Matching | Finding substrings, validation | O(n) | O(1) | "pattern", "match", "validate" |
-| String Parsing | Extracting information, tokenization | O(n) | O(n) | "parse", "extract", "split" |
-| String Encoding | Compression, decoding, encoding | O(n) | O(n) | "encode", "decode", "compress" |
+| Hash Map | Character frequency, counting, categorization | O(n) | O(1) for limited alphabet | "frequency", "count", "group" |
+| Two Pointers | Palindrome checks, reversal, in-place ops | O(n) | O(1) | "reverse", "palindrome", "in-place" |
+| Sliding Window | Substring problems with constraints | O(n) | O(1) | "substring", "window", "consecutive" |
+| String Manipulation | Math operations, path processing, evaluation | O(n) | O(n) | "calculate", "evaluate", "convert" |
+| Anagram Matching | Finding anagrams, permutations, patterns | O(n) | O(1) | "anagram", "permutation", "pattern" |
+| String Transformation | Encoding/decoding, format conversion | O(n) | O(n) | "encode", "decode", "transform" |
+| Advanced Algorithms | Complex pattern matching, regex, efficient search | O(n+m) | O(m) | "regex", "wildcard", "KMP" |
 
 ## Detailed Pattern Analysis
 
-### 1. Two Pointers Pattern
+### 1. Hash Map Patterns
 
 #### 🎯 **When to Use:**
-- String manipulation requiring comparison of characters
-- Palindrome checks and reversals
-- Problems involving pairs of characters from different positions
-- In-place string modifications
+- Character frequency counting
+- First/last occurrence tracking
+- Categorization problems
+- Quick lookups and membership testing
 
 #### 🔍 **Key Indicators:**
-- "Valid palindrome"
-- "Reverse string"
-- "Two characters"
-- "In-place operation"
-- "Compare characters from ends"
+- "Count the frequency of characters"
+- "Group similar strings/items"
+- "Find first/last occurrence"
+- "Check if two strings have same characters"
+- "Categorize based on properties"
 
 #### 💡 **Interview Strategy:**
-1. Determine if you need to compare characters from different positions
-2. Decide pointer movement strategy:
-   - Opposite directions (palindrome, reverse)
-   - Same direction (removal, filtering)
-3. Handle edge cases: empty string, single character
-4. Consider string immutability in your language
+1. **Choose the right data structure:**
+   - `Counter` for simple frequency counting
+   - `defaultdict` for grouping/categorization
+   - Regular `dict` for custom mappings
+
+2. **Consider character set:**
+   - ASCII (256 chars) → Can use array instead of hash map
+   - Limited alphabet (a-z) → Use array of size 26
+   - Unicode → Must use hash map
+
+3. **Space optimization:**
+   - If character set is limited, use fixed-size array
+   - Clear hash map when no longer needed
+   - Use `collections.Counter` for cleaner code
 
 #### 🧩 **Common Variations:**
-- **Opposite Pointers**: One at start, one at end
-- **Same Direction**: Slow and fast pointers
-- **Conditional Pointers**: Skip certain characters
+- **Frequency Counting**: Count character occurrences
+- **Categorization**: Group items by properties
+- **Position Tracking**: Store first/last positions
+- **Bijective Mapping**: One-to-one relationships
 
 #### ⚠️ **Pitfalls to Avoid:**
-- Forgetting string immutability (convert to array/list)
-- Off-by-one errors with pointer boundaries
-- Not handling empty or single-character strings
+- Using `list.count()` in loops (O(n²))
+- Not handling edge cases (empty strings)
+- Forgetting to clear hash map between test cases
+- Using hash map when array would be more efficient
+
+#### 📝 **Code Templates:**
+```python
+# Frequency Counting Template
+from collections import Counter
+
+def count_frequencies(s):
+    freq = Counter(s)
+    # Process frequencies
+    return result
+
+# Categorization Template
+from collections import defaultdict
+
+def categorize_items(items):
+    groups = defaultdict(list)
+    for item in items:
+        key = generate_key(item)
+        groups[key].append(item)
+    return list(groups.values())
+
+# Position Tracking Template
+def track_positions(s):
+    positions = {}
+    for i, char in enumerate(s):
+        if char not in positions:
+            positions[char] = i  # First occurrence
+        # Could also store last occurrence
+    return positions
+```
 
 ---
 
-### 2. Sliding Window Pattern
+### 2. Two Pointers for Strings
+
+#### 🎯 **When to Use:**
+- Palindrome checks
+- String reversal problems
+- In-place modifications
+- Processing from both ends simultaneously
+
+#### 🔍 **Key Indicators:**
+- "Check if string is palindrome"
+- "Reverse string/substring"
+- "Process from both ends"
+- "In-place operation"
+- "Compare characters from opposite ends"
+
+#### 💡 **Interview Strategy:**
+1. **Determine pointer movement:**
+   - Opposite directions (palindrome, reversal)
+   - Same direction (skip invalid characters)
+
+2. **Handle character validation:**
+   - Skip non-alphanumeric characters
+   - Case-insensitive comparisons
+   - Vowel/consonant identification
+
+3. **Edge case handling:**
+   - Empty string
+   - Single character
+   - Odd/even length strings
+
+#### 🧩 **Common Variations:**
+- **Complete Reversal**: Reverse entire string
+- **Conditional Swapping**: Only swap certain characters
+- **Character Skipping**: Skip invalid characters
+- **Palindrome Validation**: Check with character filtering
+
+#### ⚠️ **Pitfalls to Avoid:**
+- Off-by-one errors with pointer boundaries
+- Not handling string immutability in Python
+- Forgetting to convert string to list for in-place ops
+- Infinite loops with incorrect pointer movement
+
+#### 📝 **Code Templates:**
+```python
+# Basic Two Pointers Template
+def two_pointers_template(s):
+    left, right = 0, len(s) - 1
+    s = list(s)  # Convert for in-place modification
+    
+    while left < right:
+        # Process s[left] and s[right]
+        s[left], s[right] = s[right], s[left]
+        left += 1
+        right -= 1
+    
+    return ''.join(s)
+
+# Character Skipping Template
+def skip_characters_template(s):
+    left, right = 0, len(s) - 1
+    
+    while left < right:
+        # Skip invalid characters
+        while left < right and not is_valid(s[left]):
+            left += 1
+        while left < right and not is_valid(s[right]):
+            right -= 1
+        
+        # Process valid characters
+        if left < right:
+            # Do something with s[left] and s[right]
+            left += 1
+            right -= 1
+    
+    return result
+
+# Palindrome Check Template
+def palindrome_template(s):
+    left, right = 0, len(s) - 1
+    
+    while left < right:
+        if s[left] != s[right]:
+            return False
+        left += 1
+        right -= 1
+    
+    return True
+```
+
+---
+
+### 3. Sliding Window for Strings
 
 #### 🎯 **When to Use:**
 - Finding substrings with specific properties
-- Optimization problems with substring constraints
-- Problems asking for "longest", "shortest", "maximum", "minimum" substring
+- Optimization problems with constraints
+- Character counting within windows
+- Anagram detection in substrings
 
 #### 🔍 **Key Indicators:**
-- "Longest substring without repeating"
-- "Smallest substring with condition"
-- "Substring with at most K"
-- "Window", "contiguous", "subsequence"
+- "Find longest/shortest substring"
+- "Substring with at most/at least K"
+- "Consecutive characters"
+- "Window of size K"
+- "Subarray/substring constraints"
 
 #### 💡 **Interview Strategy:**
-1. Identify window type: fixed size or variable size
-2. Determine window expansion and shrinkage conditions
-3. Track window state (character count, sum, etc.)
-4. Update result when window meets criteria
+1. **Identify window type:**
+   - Fixed-size window (anagram detection)
+   - Variable-size window (longest/shortest with constraints)
+
+2. **Track window state:**
+   - Character frequencies
+   - Window size
+   - Constraint satisfaction
+
+3. **Window management:**
+   - Expand: add new character to window
+   - Shrink: remove character from left
+   - Update result when window meets criteria
 
 #### 🧩 **Common Variations:**
 - **Fixed Size Window**: Window size is predetermined
 - **Variable Size Window**: Window grows/shrinks based on conditions
-- **At Most K**: Problems with "at most K" constraint
+- **At Most K Constraint**: Limit on distinct characters
+- **Frequency-based**: Track character counts in window
 
 #### ⚠️ **Pitfalls to Avoid:**
-- Not updating window state correctly when shrinking
-- Forgetting to handle edge cases
-- O(n²) complexity instead of O(n)
+- O(n²) complexity due to improper shrinking
+- Not updating window state correctly
+- Forgetting to handle edge cases (empty string)
+- Incorrect window boundary management
+
+#### 📝 **Code Templates:**
+```python
+# Fixed Size Window Template
+def fixed_window_template(s, k):
+    if len(s) < k:
+        return result
+    
+    # Initialize window
+    window = s[:k]
+    # Process initial window
+    
+    for i in range(k, len(s)):
+        # Remove leftmost character
+        left_char = s[i - k]
+        # Add new character
+        right_char = s[i]
+        
+        # Update window state
+        # Check if window meets criteria
+    
+    return result
+
+# Variable Size Window Template
+def variable_window_template(s):
+    left = 0
+    window_state = {}
+    result = 0
+    
+    for right in range(len(s)):
+        # Expand window
+        char = s[right]
+        window_state[char] = window_state.get(char, 0) + 1
+        
+        # Shrink window while constraint violated
+        while constraint_violated(window_state):
+            left_char = s[left]
+            window_state[left_char] -= 1
+            if window_state[left_char] == 0:
+                del window_state[left_char]
+            left += 1
+        
+        # Update result
+        result = max(result, right - left + 1)
+    
+    return result
+
+# Anagram Detection Template
+def anagram_template(s, p):
+    from collections import Counter
+    
+    p_count = Counter(p)
+    window_count = Counter()
+    result = []
+    
+    for i in range(len(s)):
+        # Add current character
+        window_count[s[i]] += 1
+        
+        # Remove character outside window
+        if i >= len(p):
+            if window_count[s[i - len(p)]] == 1:
+                del window_count[s[i - len(p)]]
+            else:
+                window_count[s[i - len(p)]] -= 1
+        
+        # Check for anagram
+        if window_count == p_count:
+            result.append(i - len(p) + 1)
+    
+    return result
+```
 
 ---
 
-### 3. Hash Map Pattern
+### 4. String Manipulation Patterns
 
 #### 🎯 **When to Use:**
-- Character frequency counting
-- Finding duplicates or unique elements
-- Anagram detection
-- Pattern matching with character counts
+- Mathematical operations on strings
+- Path processing and simplification
+- Expression evaluation
+- Format conversion and transformation
 
 #### 🔍 **Key Indicators:**
-- "Frequency", "count", "duplicate"
-- "Anagram", "permutation"
-- "First unique character"
-- "Group similar strings"
+- "Add/multiply/divide strings as numbers"
+- "Simplify/normalize path"
+- "Evaluate mathematical expression"
+- "Convert between formats"
+- "Process string character by character"
 
 #### 💡 **Interview Strategy:**
-1. Identify what you need to count/track
-2. Choose appropriate data structure:
-   - Hash map for general counting
-   - Array for fixed alphabet (O(1) space)
-   - Set for existence checking
-3. Handle case sensitivity and character sets
-4. Consider space-time trade-offs
+1. **Choose processing approach:**
+   - Character-by-character processing
+   - Token-based processing
+   - Stack-based evaluation
+
+2. **Handle edge cases:**
+   - Empty strings
+   - Invalid input
+   - Overflow conditions
+   - Special characters
+
+3. **Efficiency considerations:**
+   - Use list builder for string concatenation
+   - Pre-allocate arrays when possible
+   - Avoid repeated string operations
 
 #### 🧩 **Common Variations:**
-- **Frequency Count**: Count occurrences of each character
-- **Existence Check**: Track seen/unique characters
-- **Pattern Matching**: Compare character patterns
-
-#### ⚠️ **Pitfalls to Avoid:**
-- Not handling Unicode characters properly
-- Ignoring case sensitivity when required
-- Using O(n) space when O(1) is possible
-
----
-
-### 4. String Building Pattern
-
-#### 🎯 **When to Use:**
-- Constructing new strings from existing ones
-- Transformations and modifications
-- Building results character by character
-
-#### 🔍 **Key Indicators:**
-- "Build string", "transform"
-- "Replace characters", "remove characters"
-- "Add spaces", "format output"
-
-#### 💡 **Interview Strategy:**
-1. Determine if you need to build a new string or modify existing
-2. Choose efficient building method:
-   - String concatenation (inefficient in loops)
-   - StringBuilder/StringBuffer (efficient)
-   - List/array then join (Pythonic)
-3. Handle memory efficiently for large strings
-
-#### 🧩 **Common Variations:**
-- **Character Filtering**: Build string with filtered characters
-- **Character Replacement**: Replace specific characters
-- **String Formatting**: Add separators or formatting
+- **Mathematical Operations**: Add, multiply, divide string numbers
+- **Path Processing**: Simplify file paths
+- **Expression Evaluation**: Calculate mathematical expressions
+- **Format Conversion**: Convert between different string formats
 
 #### ⚠️ **Pitfalls to Avoid:**
 - Inefficient string concatenation in loops
-- Not handling large strings memory efficiently
-- Forgetting edge cases in transformations
+- Not handling carry/borrow correctly
+- Forgetting to validate input
+- Integer overflow in languages with fixed-size integers
+
+#### 📝 **Code Templates:**
+```python
+# Character-by-Character Processing Template
+def char_by_char_template(s):
+    result = []
+    carry = 0
+    
+    for i in range(len(s) - 1, -1, -1):
+        digit = int(s[i])
+        total = digit + carry
+        result.append(str(total % 10))
+        carry = total // 10
+    
+    if carry:
+        result.append(str(carry))
+    
+    return ''.join(reversed(result))
+
+# Stack-based Processing Template
+def stack_processing_template(s):
+    stack = []
+    current_num = 0
+    operation = '+'
+    
+    for i, char in enumerate(s):
+        if char.isdigit():
+            current_num = current_num * 10 + int(char)
+        
+        if char in '+-*/' or i == len(s) - 1:
+            if operation == '+':
+                stack.append(current_num)
+            elif operation == '-':
+                stack.append(-current_num)
+            elif operation == '*':
+                stack.append(stack.pop() * current_num)
+            elif operation == '/':
+                stack.append(int(stack.pop() / current_num))
+            
+            operation = char
+            current_num = 0
+    
+    return sum(stack)
+
+# Path Processing Template
+def path_processing_template(path):
+    components = path.split('/')
+    stack = []
+    
+    for comp in components:
+        if comp == '.' or comp == '':
+            continue
+        elif comp == '..':
+            if stack:
+                stack.pop()
+        else:
+            stack.append(comp)
+    
+    return '/' + '/'.join(stack)
+```
 
 ---
 
-### 5. Pattern Matching Pattern
+### 5. Anagram and Pattern Matching
 
 #### 🎯 **When to Use:**
-- Validating string formats
-- Finding specific patterns or substrings
-- Checking string properties
+- Finding anagrams or permutations
+- Pattern detection in strings
+- Substring matching with specific properties
+- Grouping similar strings
 
 #### 🔍 **Key Indicators:**
-- "Valid", "validate", "check"
-- "Pattern", "format", "rules"
-- "Contains", "matches", "find"
+- "Find anagrams/permutations"
+- "Check if pattern exists"
+- "Group similar strings"
+- "Find all occurrences of pattern"
+- "String matching with constraints"
 
 #### 💡 **Interview Strategy:**
-1. Identify the pattern to match
-2. Choose appropriate method:
-   - Built-in string methods (contains, startsWith, endsWith)
-   - Regular expressions (complex patterns)
-   - Manual character checking (simple patterns)
-3. Handle edge cases and invalid inputs
+1. **Choose matching approach:**
+   - Frequency comparison for anagrams
+   - Sliding window for substring matching
+   - Hash map for pattern positions
+
+2. **Optimization considerations:**
+   - Use canonical representation for grouping
+   - Fixed-size window for anagram detection
+   - Early termination when possible
+
+3. **Validation:**
+   - Check length compatibility
+   - Validate character sets
+   - Handle edge cases
 
 #### 🧩 **Common Variations:**
-- **Format Validation**: Check if string follows specific format
-- **Substring Search**: Find occurrences of patterns
-- **Property Checking**: Verify string properties
+- **Anagram Detection**: Check if two strings are anagrams
+- **Group Anagrams**: Group similar strings together
+- **Permutation in String**: Check if permutation exists
+- **Pattern Matching**: Find specific patterns
 
 #### ⚠️ **Pitfalls to Avoid:**
-- Overusing regular expressions for simple tasks
-- Not handling all edge cases in validation
-- Performance issues with naive pattern matching
+- Using sorting when frequency counting is more efficient
+- Not handling duplicate characters correctly
+- Forgetting to check length compatibility
+- Inefficient substring comparisons
+
+#### 📝 **Code Templates:**
+```python
+# Anagram Detection Template
+def anagram_template(s1, s2):
+    if len(s1) != len(s2):
+        return False
+    
+    from collections import Counter
+    return Counter(s1) == Counter(s2)
+
+# Group Anagrams Template
+def group_anagrams_template(strs):
+    from collections import defaultdict
+    
+    groups = defaultdict(list)
+    
+    for s in strs:
+        # Use sorted string as canonical representation
+        key = ''.join(sorted(s))
+        groups[key].append(s)
+    
+    return list(groups.values())
+
+# Permutation in String Template
+def permutation_template(s, p):
+    from collections import Counter
+    
+    p_count = Counter(p)
+    window_count = Counter()
+    
+    for i in range(len(s)):
+        window_count[s[i]] += 1
+        
+        if i >= len(p):
+            if window_count[s[i - len(p)]] == 1:
+                del window_count[s[i - len(p)]]
+            else:
+                window_count[s[i - len(p)]] -= 1
+        
+        if window_count == p_count:
+            return True
+    
+    return False
+```
 
 ---
 
-### 6. String Parsing Pattern
+### 6. String Transformation Patterns
 
 #### 🎯 **When to Use:**
-- Extracting information from strings
-- Splitting strings into components
-- Processing structured text data
+- Encoding and decoding strings
+- Converting between formats
+- Pattern-based transformations
+- Custom string operations
 
 #### 🔍 **Key Indicators:**
-- "Parse", "extract", "split"
-- "Words", "sentences", "tokens"
-- "Separators", "delimiters"
+- "Encode/decode string"
+- "Convert between formats"
+- "Transform according to pattern"
+- "Custom string operation"
+- "Apply specific rules"
 
 #### 💡 **Interview Strategy:**
-1. Identify delimiters and structure
-2. Choose parsing method:
-   - Built-in split functions
-   - Manual character-by-character parsing
-   - Regular expressions for complex patterns
-3. Handle edge cases in input format
+1. **Understand transformation rules:**
+   - Clearly define encoding/decoding scheme
+   - Handle edge cases and delimiters
+   - Ensure reversibility
+
+2. **Implementation approach:**
+   - Direct transformation
+   - Pattern simulation
+   - State machine for complex rules
+
+3. **Validation:**
+   - Test round-trip conversion
+   - Handle invalid input
+   - Check boundary conditions
 
 #### 🧩 **Common Variations:**
-- **Word Processing**: Split by spaces, handle punctuation
-- **CSV/Structured Data**: Parse by specific delimiters
-- **Expression Parsing**: Handle mathematical expressions
+- **Encoding/Decoding**: Custom string encoding schemes
+- **Pattern Simulation**: Simulate specific patterns
+- **Format Conversion**: Convert between string formats
+- **Rule-based Transformation**: Apply specific rules
 
 #### ⚠️ **Pitfalls to Avoid:**
-- Not handling multiple consecutive delimiters
-- Ignoring edge cases in input format
-- Memory issues with large inputs
+- Not handling edge cases in encoding
+- Forgetting delimiters or separators
+- Not ensuring reversibility
+- Inefficient string operations
+
+#### 📝 **Code Templates:**
+```python
+# Encoding/Decoding Template
+def encode_decode_template(strs):
+    def encode(strs):
+        encoded = []
+        for s in strs:
+            encoded.append(f"{len(s)}#{s}")
+        return ''.join(encoded)
+    
+    def decode(s):
+        decoded = []
+        i = 0
+        while i < len(s):
+            j = s.find('#', i)
+            if j == -1:
+                break
+            length = int(s[i:j])
+            start = j + 1
+            end = start + length
+            decoded.append(s[start:end])
+            i = end
+        return decoded
+    
+    return encode, decode
+
+# Pattern Simulation Template
+def pattern_simulation_template(s, pattern_rules):
+    result = []
+    current_state = 0
+    
+    for char in s:
+        # Apply pattern rules based on current state
+        new_char, new_state = pattern_rules[current_state][char]
+        result.append(new_char)
+        current_state = new_state
+    
+    return ''.join(result)
+
+# Rule-based Transformation Template
+def rule_based_template(s, rules):
+    result = []
+    
+    for char in s:
+        if char in rules:
+            result.append(rules[char])
+        else:
+            result.append(char)
+    
+    return ''.join(result)
+```
 
 ---
 
-### 7. String Encoding Pattern
+### 7. Advanced String Algorithms
 
 #### 🎯 **When to Use:**
-- Compression algorithms
-- Encoding/decoding operations
-- Data transformation for transmission
+- Complex pattern matching
+- Regular expression implementation
+- Efficient substring search
+- Wildcard matching
 
 #### 🔍 **Key Indicators:**
-- "Encode", "decode", "compress"
-- "Run-length encoding"
-- "URL encoding", "Base64"
+- "Regular expression matching"
+- "Wildcard matching"
+- "Efficient string search"
+- "Complex pattern rules"
+- "Optimized substring matching"
 
 #### 💡 **Interview Strategy:**
-1. Understand the encoding scheme
-2. Implement both encode and decode functions
-3. Handle edge cases and invalid inputs
-4. Test with round-trip operations
+1. **Algorithm selection:**
+   - KMP for efficient substring search
+   - DP for regex/wildcard matching
+   - Greedy algorithms for specific patterns
+
+2. **Complexity analysis:**
+   - Understand time/space tradeoffs
+   - Explain algorithmic improvements
+   - Compare with brute force approaches
+
+3. **Implementation details:**
+   - Build auxiliary data structures
+   - Handle pattern preprocessing
+   - Optimize for specific constraints
 
 #### 🧩 **Common Variations:**
-- **Run-Length Encoding**: Compress consecutive characters
-- **Character Substitution**: Replace with encoded forms
-- **Custom Encoding**: Implement specific encoding rules
+- **KMP Algorithm**: Efficient substring search
+- **Regular Expression Matching**: Pattern matching with . and *
+- **Wildcard Matching**: Pattern matching with ? and *
+- **Advanced Search**: Custom search algorithms
 
 #### ⚠️ **Pitfalls to Avoid:**
-- Not handling decoding edge cases
-- Forgetting to encode special characters
-- Performance issues with large strings
+- Incorrect auxiliary data structure construction
+- Not understanding algorithmic complexity
+- Forgetting edge cases in pattern matching
+- Inefficient implementation of known algorithms
+
+#### 📝 **Code Templates:**
+```python
+# KMP Algorithm Template
+def kmp_template(haystack, needle):
+    def build_lps(pattern):
+        lps = [0] * len(pattern)
+        length = 0
+        
+        for i in range(1, len(pattern)):
+            while length > 0 and pattern[i] != pattern[length]:
+                length = lps[length - 1]
+            
+            if pattern[i] == pattern[length]:
+                length += 1
+                lps[i] = length
+        
+        return lps
+    
+    if not needle:
+        return 0
+    
+    lps = build_lps(needle)
+    i = j = 0
+    
+    while i < len(haystack):
+        if haystack[i] == needle[j]:
+            i += 1
+            j += 1
+            
+            if j == len(needle):
+                return i - j
+        else:
+            if j > 0:
+                j = lps[j - 1]
+            else:
+                i += 1
+    
+    return -1
+
+# Regular Expression Matching Template
+def regex_template(s, p):
+    n, m = len(s), len(p)
+    dp = [[False] * (m + 1) for _ in range(n + 1)]
+    dp[n][m] = True
+    
+    for i in range(n - 1, -1, -1):
+        for j in range(m - 1, -1, -1):
+            first_match = p[j] in {s[i], '.'}
+            
+            if j + 1 < m and p[j + 1] == '*':
+                dp[i][j] = dp[i][j + 2] or (first_match and dp[i + 1][j])
+            else:
+                dp[i][j] = first_match and dp[i + 1][j + 1]
+    
+    return dp[0][0]
+
+# Wildcard Matching Template
+def wildcard_template(s, p):
+    i = j = 0
+    star_idx = -1
+    match = 0
+    
+    while i < len(s):
+        if j < len(p) and (p[j] == '?' or p[j] == s[i]):
+            i += 1
+            j += 1
+        elif j < len(p) and p[j] == '*':
+            star_idx = j
+            match = i
+            j += 1
+        elif star_idx != -1:
+            j = star_idx + 1
+            match += 1
+            i = match
+        else:
+            return False
+    
+    while j < len(p) and p[j] == '*':
+        j += 1
+    
+    return j == len(p)
+```
 
 ---
 
 ## Interview Decision Tree
 
 ```
-Start: Look at the problem description
+Start: Analyze string problem description
 │
-├── Does it involve comparing characters from different positions?
+├── Frequency/Counting needed?
+│   ├── Yes → Hash Map (Counter/Defaultdict)
+│   └── No → Continue
+│
+├── Palindrome/Reversal needed?
 │   ├── Yes → Two Pointers
-│   │   ├── Opposite directions? → Palindrome/Reverse
-│   │   └── Same direction? → Filtering/Removal
 │   └── No → Continue
 │
-├── Is it about substrings with constraints?
+├── Substring with constraints?
 │   ├── Yes → Sliding Window
-│   │   ├── Fixed size? → Fixed Window
-│   │   └── Variable size? → Variable Window
 │   └── No → Continue
 │
-├── Does it involve counting characters or frequencies?
-│   ├── Yes → Hash Map
-│   │   ├── Fixed alphabet? → Array for O(1) space
-│   │   └── Variable characters? → Hash Map
+├── Anagram/Pattern matching?
+│   ├── Yes → Anagram Matching
 │   └── No → Continue
 │
-├── Are you building a new string?
-│   ├── Yes → String Building
-│   │   ├── Simple concatenation? → StringBuilder
-│   │   └── Complex transformation? → List + Join
+├── Encoding/Decoding/Transform?
+│   ├── Yes → String Transformation
 │   └── No → Continue
 │
-├── Does it involve validating formats or patterns?
-│   ├── Yes → Pattern Matching
-│   │   ├── Simple pattern? → String methods
-│   │   └── Complex pattern? → Regular expressions
-│   └── No → Continue
-│
-├── Does it involve extracting information?
-│   ├── Yes → String Parsing
-│   │   ├── Simple delimiters? → Split functions
-│   │   └── Complex structure? → Manual parsing
-│   └── No → Continue
-│
-├── Does it involve encoding/compression?
-│   ├── Yes → String Encoding
-│   └── No → Brute Force → Optimize to one of above patterns
+├── Complex pattern matching?
+│   ├── Yes → Advanced Algorithms
+│   └── No → String Manipulation
 ```
 
 ## Time and Space Complexity Quick Reference
 
 | Pattern | Best Case | Average Case | Worst Case | Space |
 |---------|-----------|--------------|------------|-------|
+| Hash Map | O(n) | O(n) | O(n) | O(1) for limited alphabet |
 | Two Pointers | O(n) | O(n) | O(n) | O(1) |
 | Sliding Window | O(n) | O(n) | O(n) | O(1) |
-| Hash Map | O(n) | O(n) | O(n) | O(1) |
-| String Building | O(n) | O(n) | O(n) | O(n) |
-| Pattern Matching | O(n) | O(n) | O(n²) | O(1) |
-| String Parsing | O(n) | O(n) | O(n) | O(n) |
-| String Encoding | O(n) | O(n) | O(n) | O(n) |
+| String Manipulation | O(n) | O(n) | O(n) | O(n) |
+| Anagram Matching | O(n) | O(n) | O(n) | O(1) |
+| String Transformation | O(n) | O(n) | O(n) | O(n) |
+| Advanced Algorithms | O(n+m) | O(n+m) | O(n+m) | O(m) |
 
 ## Practice Strategy
 
@@ -327,29 +787,29 @@ Start: Look at the problem description
 
 ## Common Interview Follow-ups and How to Handle Them
 
-### "Can you optimize the space complexity?"
-- Look for in-place solutions
-- Use arrays instead of hash maps for fixed alphabets
-- Consider bit manipulation for character tracking
+### "Can you optimize space complexity?"
+- Look for in-place solutions using two pointers
+- Use arrays instead of hash maps for limited character sets
+- Reuse data structures between operations
 
-### "What if the string is very large?"
-- Discuss streaming approaches
-- Consider memory-efficient solutions
-- Talk about time-space trade-offs
+### "What if the character set is Unicode?"
+- Must use hash maps instead of fixed-size arrays
+- Consider memory implications
+- May need to handle multi-byte characters
 
-### "How would you handle Unicode characters?"
-- Discuss UTF-8/UTF-16 encoding
-- Consider character set size in hash maps
-- Talk about language-specific handling
+### "How to handle very large strings?"
+- Consider streaming/online algorithms
+- Process in chunks if possible
+- Use generators for memory efficiency
 
-### "Can you solve this without using built-in functions?"
-- Implement manual character checking
-- Write custom parsing functions
-- Show understanding of underlying algorithms
+### "Can you do it in one pass?"
+- Usually sliding window or two pointers
+- Maintain running state instead of multiple passes
+- Trade space for time efficiency
 
 ## Final Tips for Interview Success
 
-1. **Pattern First, Code Second**: Always identify the pattern before coding
+1. **Pattern First, Code Second**: Always identify pattern before coding
 2. **Explain Your Choice**: Verbally explain why you chose a pattern
 3. **Start Simple**: Begin with brute force, then optimize to pattern
 4. **Handle Edge Cases**: Always discuss empty string, single character cases

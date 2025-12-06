@@ -1,99 +1,107 @@
-# String Patterns Cheat Sheet for LeetCode Interviews
+# String & Hashmap Patterns Cheat Sheet for LeetCode Interviews
 
 ## 🚀 Quick Pattern Identification
 
 ### 🔍 **First Questions to Ask Yourself:**
-1. Do I need to compare characters from different positions?
-2. Is it about substrings with constraints?
-3. Does it involve counting characters or frequencies?
-4. Am I building a new string?
-5. Does it involve validating formats or patterns?
-6. Do I need to extract information from the string?
-7. Does it involve encoding/compression?
+1. Is it about character frequency or counting?
+2. Does it involve palindrome checks or reversal?
+3. Is it about substrings with constraints?
+4. Does it require mathematical operations on strings?
+5. Is it about anagrams or pattern matching?
+6. Does it involve encoding/decoding or transformation?
+7. Is it a complex pattern matching problem?
 
 ---
 
 ## 📋 Pattern Summary
 
-### 1️⃣ **Two Pointers** `O(n) | O(1)`
+### 1️⃣ **Hash Map Patterns** `O(n) | O(1)`
 ```
-When: String manipulation, palindrome checks, reversals
-Keywords: "reverse", "palindrome", "two characters", "in-place"
+When: Character frequency, counting, categorization
+Keywords: "frequency", "count", "group", "first/last"
 
 Setup:
-left, right = 0, len(s) - 1  # Opposite
-slow, fast = 0, 1             # Same direction
+from collections import Counter, defaultdict
+
+# Frequency counting
+freq = Counter(string)
+
+# Categorization
+groups = defaultdict(list)
 ```
 
-### 2️⃣ **Sliding Window** `O(n) | O(1)`
+### 2️⃣ **Two Pointers for Strings** `O(n) | O(1)`
+```
+When: Palindrome checks, reversal, in-place ops
+Keywords: "reverse", "palindrome", "in-place", "two ends"
+
+Setup:
+left, right = 0, len(s) - 1
+while left < right:
+    # process both ends
+    left += 1
+    right -= 1
+```
+
+### 3️⃣ **Sliding Window for Strings** `O(n) | O(1)`
 ```
 When: Substring problems with constraints
-Keywords: "substring", "longest/shortest", "window", "contiguous"
+Keywords: "substring", "window", "consecutive", "at most"
 
 Setup:
-window_start = 0
-for window_end in range(len(s)):
+left = 0
+for right in range(len(s)):
     # expand window
-    while condition_not_met:
+    while condition_violated:
         # shrink window
 ```
 
-### 3️⃣ **Hash Map** `O(n) | O(1)`
+### 4️⃣ **String Manipulation Patterns** `O(n) | O(n)`
 ```
-When: Character counting, frequency analysis, anagrams
-Keywords: "frequency", "count", "duplicate", "anagram"
-
-Setup:
-char_count = {}
-for char in s:
-    char_count[char] = char_count.get(char, 0) + 1
-```
-
-### 4️⃣ **String Building** `O(n) | O(n)`
-```
-When: Result construction, transformations
-Keywords: "build", "transform", "modify", "replace"
+When: Mathematical ops, path processing, evaluation
+Keywords: "calculate", "evaluate", "simplify", "convert"
 
 Setup:
 result = []
-for char in s:
-    # process char
+for char in string:
+    # process character
     result.append(processed_char)
 return ''.join(result)
 ```
 
-### 5️⃣ **Pattern Matching** `O(n) | O(1)`
+### 5️⃣ **Anagram & Pattern Matching** `O(n) | O(1)`
 ```
-When: Finding substrings, validation
-Keywords: "pattern", "match", "validate", "contains"
+When: Finding anagrams, permutations, patterns
+Keywords: "anagram", "permutation", "pattern", "match"
 
 Setup:
-for i in range(len(s) - len(pattern) + 1):
-    if s[i:i+len(pattern)] == pattern:
+# Fixed-size window
+window_size = len(pattern)
+for i in range(len(s) - window_size + 1):
+    if is_anagram(s[i:i+window_size], pattern):
         # found match
 ```
 
-### 6️⃣ **String Parsing** `O(n) | O(n)`
+### 6️⃣ **String Transformation Patterns** `O(n) | O(n)`
 ```
-When: Extracting information, tokenization
-Keywords: "parse", "extract", "split", "words"
+When: Encoding/decoding, format conversion
+Keywords: "encode", "decode", "transform", "convert"
 
 Setup:
-tokens = s.split(delimiter)
-for token in tokens:
-    # process token
+def transform(s):
+    # apply transformation rules
+    return transformed_string
 ```
 
-### 7️⃣ **String Encoding** `O(n) | O(n)`
+### 7️⃣ **Advanced String Algorithms** `O(n+m) | O(m)`
 ```
-When: Compression, decoding, encoding
-Keywords: "encode", "decode", "compress"
+When: Complex pattern matching, regex, efficient search
+Keywords: "regex", "wildcard", "KMP", "complex matching"
 
 Setup:
-def encode(s):
-    # encoding logic
-def decode(encoded):
-    # decoding logic
+# KMP algorithm
+def build_lps(pattern):
+    # build longest prefix suffix array
 ```
 
 ---
@@ -103,56 +111,59 @@ def decode(encoded):
 ### **Easy Problems:**
 | Problem | Pattern | Key Insight |
 |---------|---------|-------------|
+| Two Sum | Hash Map | Store complements |
+| Valid Anagram | Frequency Count | Compare character counts |
 | Reverse String | Two Pointers | Swap from ends |
-| Valid Palindrome | Two Pointers | Compare from ends |
-| First Unique Character | Hash Map | Track frequencies |
-| String to Integer | String Parsing | Manual conversion |
-| Valid Anagram | Hash Map | Compare char counts |
+| Valid Palindrome | Two Pointers | Skip non-alphanumerics |
+| First Unique Character | Hash Map | Frequency counting |
+| Longest Common Prefix | String Comparison | Vertical scanning |
 
 ### **Medium Problems:**
 | Problem | Pattern | Key Insight |
 |---------|---------|-------------|
-| Longest Substring Without Repeating | Sliding Window | Track last seen |
-| Longest Palindromic Substring | Two Pointers | Expand from center |
-| Group Anagrams | Hash Map | Sort or count chars |
-| Encode and Decode Strings | String Encoding | Custom encoding |
-| Word Break | String Parsing | Dynamic programming |
+| Group Anagrams | Hash Map | Sorted string as key |
+| Longest Substring | Sliding Window | Track last seen |
+| Find All Anagrams | Sliding Window | Fixed-size window |
+| Word Break | DP + Hash Set | Memoized backtracking |
+| Multiply Strings | String Manipulation | Digit-by-digit |
+| Zigzag Conversion | String Transformation | Pattern simulation |
 
 ### **Hard Problems:**
 | Problem | Pattern | Key Insight |
 |---------|---------|-------------|
-| Minimum Window Substring | Sliding Window | Track required chars |
-| Basic Calculator | String Parsing | Stack for operators |
-| Wildcard Matching | Pattern Matching | DP or greedy |
-| Text Justification | String Building | Format words |
+| Minimum Window Substring | Sliding Window | Track requirements |
+| Regular Expression Matching | DP | Pattern matching rules |
+| Wildcard Matching | Two Pointers | Greedy optimization |
+| Word Break II | Backtracking | Memoized DFS |
+| Basic Calculator II | String Manipulation | Stack for precedence |
 
 ---
 
 ## 🚨 Common Pitfalls & Solutions
 
+### **Hash Map Patterns:**
+- ❌ Not using Counter for frequency counting
+- ❌ Forgetting to handle edge cases (empty strings)
+- ✅ Use Counter/Defaultdict for cleaner code
+- ✅ Consider character set limitations
+
 ### **Two Pointers:**
-- ❌ Forgetting string immutability
-- ❌ Off-by-one errors with boundaries
-- ✅ Convert to list for in-place operations
-- ✅ Handle empty/single character strings
+- ❌ Off-by-one errors with string boundaries
+- ❌ Not handling character skipping properly
+- ✅ Careful with loop conditions (left < right)
+- ✅ Handle character validation separately
 
 ### **Sliding Window:**
-- ❌ O(n²) instead of O(n)
-- ❌ Not shrinking window correctly
-- ✅ Track window state properly
-- ✅ Update result at right time
+- ❌ O(n²) instead of O(n) due to improper shrinking
+- ❌ Not updating window state correctly
+- ✅ Track window state (counts, positions)
+- ✅ Shrink window efficiently
 
-### **Hash Map:**
-- ❌ Using O(n) space when O(1) is possible
-- ❌ Not handling Unicode properly
-- ✅ Use array for fixed alphabet
-- ✅ Consider case sensitivity
-
-### **String Building:**
-- ❌ Inefficient concatenation in loops
-- ❌ Memory issues with large strings
-- ✅ Use StringBuilder or list + join
-- ✅ Consider streaming for very large strings
+### **String Manipulation:**
+- ❌ Inefficient string concatenation in loops
+- ❌ Not handling edge cases (division by zero)
+- ✅ Use list builder pattern
+- ✅ Validate input and handle edge cases
 
 ---
 
@@ -160,63 +171,57 @@ def decode(encoded):
 
 ### **Quick Pattern Detection:**
 ```python
-def detect_pattern(problem_description):
-    if "palindrome" in problem_description or "reverse" in problem_description:
+def detect_string_pattern(problem_description):
+    if "frequency" in problem_description or "count" in problem_description:
+        return "Hash Map"
+    
+    if "reverse" in problem_description or "palindrome" in problem_description:
         return "Two Pointers"
     
     if "substring" in problem_description or "window" in problem_description:
         return "Sliding Window"
     
-    if "frequency" in problem_description or "anagram" in problem_description:
-        return "Hash Map"
+    if "anagram" in problem_description or "permutation" in problem_description:
+        return "Anagram Matching"
     
-    if "build" in problem_description or "transform" in problem_description:
-        return "String Building"
+    if "encode" in problem_description or "decode" in problem_description:
+        return "String Transformation"
     
-    if "valid" in problem_description or "pattern" in problem_description:
-        return "Pattern Matching"
+    if "regex" in problem_description or "wildcard" in problem_description:
+        return "Advanced Algorithms"
     
-    if "parse" in problem_description or "split" in problem_description:
-        return "String Parsing"
-    
-    if "encode" in problem_description or "compress" in problem_description:
-        return "String Encoding"
-    
-    return "Brute Force → Optimize"
+    return "String Manipulation"
 ```
 
 ### **Template Structures:**
 ```python
+# Hash Map Template
+def hash_map_template(s):
+    from collections import Counter
+    freq = Counter(s)
+    # process frequencies
+    return result
+
 # Two Pointers Template
 def two_pointers_template(s):
     left, right = 0, len(s) - 1
     while left < right:
-        # check condition
-        if condition:
-            left += 1
-        else:
-            right -= 1
+        # process s[left] and s[right]
+        left += 1
+        right -= 1
+    return result
 
 # Sliding Window Template
-def sliding_window_template(s, constraint):
-    window_start = 0
-    for window_end in range(len(s)):
-        # add current character to window
+def sliding_window_template(s, k):
+    left = 0
+    for right in range(len(s)):
+        # expand window
         
-        # shrink window if condition violated
         while condition_violated:
-            # remove character from window_start
-            window_start += 1
+            # shrink window
+            left += 1
         
         # update result
-
-# Hash Map Template
-def hash_map_template(s):
-    char_count = {}
-    for char in s:
-        char_count[char] = char_count.get(char, 0) + 1
-    
-    # process frequencies
     return result
 ```
 
@@ -225,14 +230,14 @@ def hash_map_template(s):
 ## 🎪 Practice Checklist
 
 ### **Before Interview:**
-- [ ] Know all 7 patterns by heart
-- [ ] Practice pattern identification
+- [ ] Master all 7 patterns by heart
+- [ ] Practice pattern identification (30 seconds max)
 - [ ] Time yourself (15-20 min per problem)
 - [ ] Practice explaining pattern choice
 - [ ] Handle edge cases automatically
 
 ### **During Interview:**
-1. **Clarify constraints** (case sensitivity, character set, string length)
+1. **Clarify constraints** (character set, string length, etc.)
 2. **Identify pattern** (use decision tree)
 3. **Explain pattern choice** (why this over others?)
 4. **Write clean code** (use templates)
@@ -241,99 +246,119 @@ def hash_map_template(s):
 
 ### **Common Follow-ups:**
 - "Can you optimize space?" → Look for in-place solutions
-- "What if the string is very large?" → Consider streaming approaches
-- "How to handle Unicode?" → Discuss character encoding
-- "Can you do it without built-in functions?" → Implement manually
+- "What if character set is Unicode?" → Use hash maps instead of arrays
+- "How to handle large strings?" → Consider streaming/online algorithms
+- "Can you do it in one pass?" → Usually sliding window or two pointers
 
 ---
 
 ## 🏆 Pro Tips
 
 ### **Pattern Selection Strategy:**
-1. **Two Pointers** → Default for character comparison problems
-2. **Sliding Window** → Default for substring problems
-3. **Hash Map** → Default for frequency/counting problems
-4. **String Building** → Default for transformation problems
-5. **Brute Force** → Starting point, then optimize
+1. **Hash Map** → Default for frequency/counting problems
+2. **Two Pointers** → Default for palindrome/reversal problems
+3. **Sliding Window** → Default for substring/constraint problems
+4. **String Manipulation** → Default for mathematical/transform problems
+5. **Brute Force** → Starting point, then optimize to pattern
 
 ### **Time Complexity Rules:**
-- Nested loops over string → Usually can be optimized to O(n)
-- Character counting → O(1) space if alphabet is fixed
-- String concatenation in loops → O(n²) in some languages
-- Hash operations → O(1) average, O(n) worst case
+- Nested loops over strings → Usually O(n²), can be optimized
+- Hash map operations → O(1) average, O(n) worst case
+- Sliding window → O(n) if implemented correctly
+- String concatenation in loops → O(n²), use list builder
 
 ### **Space Optimization:**
-- Use arrays instead of hash maps for fixed alphabets
-- Two pointers instead of hash maps for sorted data
+- Use Counter/Defaultdict for frequency counting
+- Two pointers instead of extra arrays when possible
 - In-place operations when allowed
-- Bit manipulation for tracking character states
+- Character arrays instead of strings for modifications
 
-### **Language-Specific Tips:**
-- **Python**: Use list + join for string building
-- **Java**: Use StringBuilder for efficient concatenation
-- **JavaScript**: Template literals for formatting
-- **C++**: Use string stream for building
-
-Remember: **Pattern recognition is the key to interview success!** 🎯
+### **Character Set Considerations:**
+- ASCII (256 chars) → Can use arrays instead of hash maps
+- Unicode → Must use hash maps
+- Limited alphabet (a-z) → Use array of size 26
+- Digits only → Use array of size 10
 
 ---
 
-## 🔧 Quick Reference Functions
+## 🔧 Built-in String Methods Reference
 
-### **Common String Operations:**
+### **Essential Methods:**
 ```python
-# Character frequency
-def char_frequency(s):
-    freq = {}
-    for char in s:
-        freq[char] = freq.get(char, 0) + 1
-    return freq
-
-# Palindrome check
-def is_palindrome(s):
-    left, right = 0, len(s) - 1
-    while left < right:
-        if s[left] != s[right]:
-            return False
-        left += 1
-        right -= 1
-    return True
-
-# Anagram check
-def are_anagrams(s1, s2):
-    return char_frequency(s1) == char_frequency(s2)
-
-# Longest substring without repeating
-def longest_unique_substring(s):
-    char_index = {}
-    left = max_len = 0
-    for right, char in enumerate(s):
-        if char in char_index and char_index[char] >= left:
-            left = char_index[char] + 1
-        char_index[char] = right
-        max_len = max(max_len, right - left + 1)
-    return max_len
+s.isalnum()           # Check if alphanumeric
+s.isalpha()           # Check if alphabetic
+s.isdigit()           # Check if digit
+s.lower() / s.upper() # Case conversion
+s.strip()             # Remove whitespace
+s.split()             # Split by whitespace
+s.join(iterable)      # Join strings
+s.find(sub)           # Find substring (returns -1 if not found)
+s.index(sub)          # Find substring (raises ValueError)
+s.replace(old, new)   # Replace substring
+s.startswith(prefix)  # Check prefix
+s.endswith(suffix)    # Check suffix
 ```
 
-### **Useful Built-in Functions:**
+### **Useful Collections:**
 ```python
-# Python
-s.lower()           # Convert to lowercase
-s.upper()           # Convert to uppercase
-s.split()           # Split by whitespace
-s.strip()           # Remove leading/trailing whitespace
-s.replace(old, new) # Replace substrings
-s.find(sub)         # Find substring index
-s.count(char)       # Count occurrences
+from collections import Counter, defaultdict
 
-# Java
-s.toLowerCase()      # Convert to lowercase
-s.toUpperCase()      # Convert to uppercase
-s.split(" ")        # Split by space
-s.trim()            # Remove leading/trailing whitespace
-s.replace(old, new)  # Replace substrings
-s.indexOf(sub)       # Find substring index
-s.charAt(i)         # Get character at index
+Counter(s)           # Character frequency
+defaultdict(list)     # List of groups
+defaultdict(int)      # Counter with default 0
 ```
 
-Keep this cheat sheet handy during your interview preparation and review it regularly to internalize the patterns! 🚀
+---
+
+## 🎯 Interview Strategy Flowchart
+
+```
+Start: Analyze problem description
+│
+├── Frequency/Counting needed?
+│   ├── Yes → Hash Map (Counter/Defaultdict)
+│   └── No → Continue
+│
+├── Palindrome/Reversal needed?
+│   ├── Yes → Two Pointers
+│   └── No → Continue
+│
+├── Substring with constraints?
+│   ├── Yes → Sliding Window
+│   └── No → Continue
+│
+├── Anagram/Pattern matching?
+│   ├── Yes → Anagram Matching
+│   └── No → Continue
+│
+├── Encoding/Decoding/Transform?
+│   ├── Yes → String Transformation
+│   └── No → Continue
+│
+├── Complex pattern matching?
+│   ├── Yes → Advanced Algorithms
+│   └── No → String Manipulation
+```
+
+---
+
+## 🚀 Final Tips
+
+1. **Pattern First, Code Second**: Always identify pattern before coding
+2. **Explain Your Choice**: Verbally explain why you chose a pattern
+3. **Start Simple**: Begin with brute force, then optimize to pattern
+4. **Handle Edge Cases**: Empty string, single character, special chars
+5. **Time Complexity**: Be ready to explain time/space complexity
+6. **Practice Under Pressure**: Simulate interview conditions
+7. **Review Mistakes**: Learn from pattern misidentification
+
+Remember: **Pattern recognition is the key to interview success!** 🎯
+
+### **Quick Reference Summary:**
+- **Hash Map**: Frequency, counting, categorization
+- **Two Pointers**: Palindrome, reversal, in-place
+- **Sliding Window**: Substrings, constraints, windows
+- **String Manipulation**: Math ops, evaluation, conversion
+- **Anagram Matching**: Permutations, patterns, matching
+- **String Transformation**: Encoding, decoding, format change
+- **Advanced Algorithms**: Complex matching, regex, efficient search
